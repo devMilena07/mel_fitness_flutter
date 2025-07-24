@@ -10,7 +10,7 @@ workflows:
         script: flutter pub get
       - name: Build APK
         script: flutter build apk --release
-      - name: Build iOS (simulator)
+      - name: Build iOS (real device - no code signing)
         script: |
           flutter build ios --release --no-codesign
     artifacts:
