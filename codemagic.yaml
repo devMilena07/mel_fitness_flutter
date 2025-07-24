@@ -2,10 +2,6 @@ workflows:
   build_ios:
     name: Build iOS IPA Only
     environment:
-workflows:
-  build_ios:
-    name: Build iOS IPA Only
-    environment:
       flutter: stable
       xcode: latest
     scripts:
@@ -17,8 +13,5 @@ workflows:
           flutter build ipa --release --no-codesign
     artifacts:
       - build/ios/ipa/*.ipa
-      - build/ios/ipa/*.dSYM
-      - build/ios/ipa/*.dSYM.zip
-      - build/ios/iphoneos/*.app
 
 
