@@ -1,17 +1,42 @@
 workflows:
-  build_ios:
+  build-ios-without-signing:
     name: Build iOS IPA Only
+    max_build_duration: 30
+    instance_type: mac_mini_m2
     environment:
-      flutter: stable
-      xcode: latest
+       flutter: stable
     scripts:
-      - name: Install dependencies
-        script: |
-          flutter pub get
-      - name: Build IPA without code signing
-        script: |
-          flutter build ipa --release --no-codesign
+      - name: Flutter clean
+        script: flutter clean
+      - name: Get dependencies
+        script: flutter pub get
+      - name: Build IPA without signing
+        script: flutter build ios --release --no-codesign
     artifacts:
-      - build/ios/ipa/*.ipa
+      - build/ios/iphoneos/*.ipa
+      - build/ios/iphoneos/Runner.app
+    publishing:
+      email:
+        recipients:
+          - britessantanamilena@gmail.com
 
+  build-android-apk:
+    name: Build Android APK
+    max_build_duration: 30
+    instance_type: mac_mini_m2
+    environment:
+       flutter: stable
+    scripts:
+      - name: Flutter clean
+        script: flutter clean
+      - name: Get dependencies
+        script: flutter pub get
+      - name: Build APK
+        script: flutter build apk --release
+    artifacts:
+      - build/app/outputs/flutter-apk/app-release.apk
+    publishing:
+      email:
+        recipients:
+          - britessantanamilena@gmail.com
 
