@@ -1,16 +1,22 @@
 workflows:
-  build_melfitness:
-    name: Build melfitness_flutter
+  build_melfitness_app:
+    name: Build mel_fitness_flutter App
     max_build_duration: 60
     environment:
       flutter: stable
       xcode: latest
+      vars:
+        FIREBASE_CLI_LOGIN: $FIREBASE_TOKEN
+      groups:
+        - firebase_credentials
     scripts:
-      - name: Install dependencies
-        script: flutter pub get
+      - name: Install Flutter dependencies
+        script: |
+          flutter pub get
       - name: Build APK
-        script: flutter build apk --release
-      - name: Build iOS (real device - no code signing)
+        script: |
+          flutter build apk --release
+      - name: Build IPA
         script: |
           flutter build ios --release --no-codesign
     artifacts:
