@@ -11,7 +11,8 @@ workflows:
       - name: Build IPA
         script: |
           flutter build ipa --release --no-codesign
-    artifacts:
-      - build/ios/ipa/*.ipa
-      - build/ios/ipa/*.dSYM.zip
-
+artifacts:
+  - build/ios/ipa/*.ipa
+  - build/ios/ipa/*.dSYM
+  - build/ios/ipa/*.dSYM.zip
+  - build/ios/iphoneos/*.app
