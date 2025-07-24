@@ -8,7 +8,7 @@ workflows:
       - name: Install dependencies
         script: |
           flutter pub get
-      - name: Build IPA
+      - name: Build IPA without code signing
         script: |
           flutter build ipa --release --no-codesign
     artifacts:
