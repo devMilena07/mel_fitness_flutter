@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -30,9 +37,27 @@ class _WebViewContainerState extends State<WebViewContainer> {
   @override
   void initState() {
     super.initState();
+
     _controller = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..loadRequest(Uri.parse('https://mobile.melfitness.com.br/'));
+
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+    messaging.requestPermission(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
+
+    messaging.getToken().then((token) {
+      print('Token do dispositivo: $token');
+    });
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print('Mensagem recebida: ${message.notification?.title}');
+      // Aqui você pode implementar um alerta ou notificação local
+    });
   }
 
   @override
@@ -44,3 +69,4 @@ class _WebViewContainerState extends State<WebViewContainer> {
     );
   }
 }
+
