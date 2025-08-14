@@ -19,24 +19,3 @@ workflows:
       email:
         recipients:
           - britessantanamilena@gmail.com
-
-  build-android-apk:
-    name: Build Android APK
-    max_build_duration: 30
-    instance_type: mac_mini_m2
-    environment:
-       flutter: stable
-    scripts:
-      - name: Flutter clean
-        script: flutter clean
-      - name: Get dependencies
-        script: flutter pub get
-      - name: Build APK
-        script: flutter build apk --release
-    artifacts:
-      - build/app/outputs/flutter-apk/app-release.apk
-    publishing:
-      email:
-        recipients:
-          - britessantanamilena@gmail.com
-
